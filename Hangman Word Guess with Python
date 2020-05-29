@@ -1,7 +1,5 @@
-import numpy as np
-secret_word=np.random.choice(#list of word choices)
-
 def play_game(secret_word):
+    import numpy as np
     secret_word = secret_word.upper()
 
     INITIAL_GUESSES = 8
@@ -14,23 +12,24 @@ def play_game(secret_word):
 
         inp = input("Type a single letter here, then press enter: ")
         inp = inp.upper()
-        
-        # If user inputs multiple letters: in such case, available guess count is not decreased
-        if len(inp) > 1:       
+
+        if len(inp) > 1:
             print("Guess should only be a single character.")
+            print("The word now looks like this :", "".join(Guess))
+            
 
         elif inp not in secret_word:
             print("There are no", inp, "'s in the word")
+            print("The word now looks like this :", "".join(Guess))
             count += 1
-         
-        # Handling repeating letters in the word
+
         elif inp in secret_word:
             boolean_locations = []
             for i in secret_word:
                 boolean_locations.append(i == inp)
             boolean_locations_array = np.array(boolean_locations)
             word_array = np.array(list(secret_word))
-            number_of_inp_repetitions = len(word_array[boolean_locations_array]) # Indices of word where input letter repeats
+            number_of_inp_repetitions = len(word_array[boolean_locations_array])  # we now know how many repetitions
 
             if number_of_inp_repetitions == 1:
                 print("That guess is correct")
