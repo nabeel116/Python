@@ -13,7 +13,7 @@ def play_game(secret_word):
         inp = input("Type a single letter here, then press enter: ")
         inp = inp.upper()
 
-        if len(inp) > 1:
+        if len(inp) > 1:       # in such case, User available guess count is not decreased
             print("Guess should only be a single character.")
 
         elif inp not in secret_word:
@@ -26,7 +26,7 @@ def play_game(secret_word):
                 boolean_locations.append(i == inp)
             boolean_locations_array = np.array(boolean_locations)
             word_array = np.array(list(secret_word))
-            number_of_inp_repetitions = len(word_array[boolean_locations_array]) # Input repeating indices
+            number_of_inp_repetitions = len(word_array[boolean_locations_array]) # Indices of word where input letter repeats
 
             if number_of_inp_repetitions == 1:
                 print("That guess is correct")
