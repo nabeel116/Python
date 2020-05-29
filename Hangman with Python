@@ -1,9 +1,9 @@
 import numpy as np
 
 def play_game(secret_word):
+    import numpy as np
     secret_word = secret_word.upper()
-
-    INITIAL_GUESSES = 6
+    INITIAL_GUESSES = len(secret_word)
     Guess = list("_" * len(secret_word))
     print("Lets play Hangman")
     count = 0
@@ -14,7 +14,6 @@ def play_game(secret_word):
     print("You have", INITIAL_GUESSES, "guesses left")
 
     while count < INITIAL_GUESSES:
-
         inp = input("Type a single letter here, then press enter: ")
         inp = inp.upper()
 
@@ -39,7 +38,7 @@ def play_game(secret_word):
                 boolean_locations.append(i == inp)
             boolean_locations_array = np.array(boolean_locations)
             word_array = np.array(list(secret_word))
-            number_of_inp_repetitions = len(word_array[boolean_locations_array])  # we now know how many repetitions
+            number_of_inp_repetitions = len(word_array[boolean_locations_array])  # we now know count of repetitions amongst letters
 
             if number_of_inp_repetitions == 1:
                 print("That guess is correct")
@@ -62,10 +61,9 @@ def play_game(secret_word):
             print("Congratulations, the word is: ", secret_word)
             break
 
-        if count == INITIAL_GUESSES:
+        if count == INITIAL_GUESSES or wrong_count==hangman_stage-1:
             print("Sorry, you lost. The secret word was :", secret_word)
-
-
+            break
 
 def display_hangman(count):
     stages = [  # final state: head, torso, both arms, and both legs
@@ -142,11 +140,11 @@ def display_hangman(count):
     return stages[count]
 
 def get_word():
-    data= [#LIST OF WORD CHOICES]
- 
+    import pandas as pd
+    import numpy as np
+    data=[#LIST OF WORD CHOICES]
     secret_word=np.random.choice(data)
     return secret_word
-
 
 def main():
     """
@@ -154,6 +152,7 @@ def main():
     player to guess and then play the game using that secret word.
     """
     secret_word = get_word()
+    print(secret_word)              # for explainability
     play_game(secret_word)
 
 
